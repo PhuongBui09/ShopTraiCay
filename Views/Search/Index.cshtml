@@ -1,0 +1,40 @@
+﻿@using shoptraicay.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3 style="font-weight:550;">Kết quả tìm kiếm cho: <span style="color:red;">@ViewBag.search</span></h3>
+
+<div>
+    @{
+        foreach (LoaiSP loai in Common.GetLoaiSPs())
+        {
+            <div class="row sp_home-header" id="@loai.maLoai">
+                @{
+                    int soSP = 0;
+                    foreach (SanPham sanPham in Common.SearchProduct(ViewBag.search))
+                    {
+                        <div class="col-md-3">
+                            <div class="imgsp">
+                                <a href="@Url.Action("Index", "ChiTietSP", new { @id = sanPham.maSP } )">
+                                    <img src="@sanPham.hinhDD" />
+                                </a>
+                            </div>
+
+                            @Html.ActionLink(@sanPham.tenSP, "Index", "ChiTietSP", new { @id = sanPham.maSP }, null)
+                            <p>Giá bán: @String.Format("{0:#,##0 VNĐ}", @sanPham.giaBan)</p>
+                            <button class="btn btn-success" onclick="themTC('@sanPham.maSP', '@sanPham.tenSP')">Mua Ngay</button>
+
+                        </div>
+                        soSP++;
+                    }
+                    if (soSP == 0)
+                    {
+                        <p>Không tìm thấy sản phẩm: @ViewBag.search</p>
+                    }
+                }
+
+            </div>
+        }
+    }
+</div>

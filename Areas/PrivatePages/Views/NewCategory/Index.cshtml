@@ -1,0 +1,94 @@
+﻿@using shoptraicay.Models;
+@model shoptraicay.Models.LoaiSP
+@{
+    ViewBag.Title = "Index";
+    List<LoaiSP> list = ViewData["DsLoai"] as List<LoaiSP>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Loại hàng - Ngành hàng</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Dashboard")">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Loại Hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card" style="margin-left: 20px;">
+            <div class="card-header" style=" color: white; background-color: #828292;">
+                <h3 class="card-title">Chủng loại hàng hóa - Ngành hàng</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mã loại</th>
+                            <th>Tên loại hàng</th>
+                            <th>Số sản phẩm</th>
+                            <th>Nhóm lệnh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LoaiSP l in list)
+                        {
+                            <tr style="border: 1px solid #dee2e6;">
+                                <td>@l.maLoai</td>
+                                <td>@l.tenLoai</td>
+                                <td>@l.SanPham.Where(x => x.maLoai == l.maLoai).Count() sản phẩm</td>
+                                <td style="width: 100%; display: flex; justify-content: center; border: none;">
+                                    @using (Html.BeginForm("Delete", "NewCategory", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="loaiCanXoa" value="@l.maLoai" />
+                                        <button style="margin-right: 4px" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    }
+                                    @using (Html.BeginForm("Update", "NewCategory", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="loaiCanSua" value="@l.maLoai" />
+                                        <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card card-primary" style=" margin-right: 20px;">
+            <div class="card-header">
+                <h3 class="card-title">Thông tin chính</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+                @using (Html.BeginForm("Index", "NewCategory", FormMethod.Post))
+                {
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên sản phẩm</label>
+                            @Html.TextBoxFor(x => x.tenLoai, new { @class = "form-control", @placeholder = "Tên sản phẩm tối đa 35 ký tự" })
+                        </div>
+                        <div class="form-group">
+                            <label for="noiDungTT">Diễn giải cho loại hàng</label>
+                            @Html.TextAreaFor(x => x.ghiChu, new { @class = "form-control", @rows = "8", @placeholder = "Nội dung diễn giải không được quá 200 chữ" })
+                        </div>
+                        <div><button class="btn btn-success">Lưu thông tin</button></div>
+                    </div>
+                    <!-- /.card-body -->
+                    @Html.HiddenFor(x => x.maLoai)
+                }
+        </div>
+    </div>
+</div>

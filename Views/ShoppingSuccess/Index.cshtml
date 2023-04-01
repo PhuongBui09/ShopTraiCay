@@ -1,0 +1,111 @@
+﻿@model shoptraicay.Models.KhachHang
+@using shoptraicay.Models;
+@{
+    ViewBag.Title = "Mua hàng thành công";
+    ShoppingCart x = ViewData["Cart"] as ShoppingCart;
+    KhachHang m = ViewData["KhachHang"] as KhachHang;
+    DonHang dh = Session["DonHang"] as DonHang;
+}
+
+<div class="invoice p-3 mb-3">
+    <!-- title row -->
+    <div class="row" style=" background-color: #d7d7d7;">
+        <div class="col-12">
+            <h4 style="text-align: center;">
+                <i class="fas fa-globe"></i>
+                <span>Mua hàng thành công</span>
+                <i class="fas fa-globe"></i>
+            </h4>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info" style="margin-top: 15px; border: 1px solid #cec3c3;">
+        <div class="col-sm-4 invoice-col" style="margin-top: 20px;">
+            <span style="font-size: 15px; font-weight: 550; color: red;">Người bán:</span>
+            <address>
+                <strong>Bạch Sỹ Khang && Bùi Bá Phương</strong><br>
+                Địa chỉ: An Phú Đông, Q12, TP.HCM<br />
+                Phone: 037.559.5019<br>
+                Email: bachsykhang.it@gmail.com
+            </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col" style="margin-top: 20px;">
+            <span style="font-size: 15px; font-weight: 550; color: red;">Người nhận:</span>
+            <address>
+                <strong>@m.tenKH</strong><br>
+                Địa Chỉ: @m.diaChi<br />
+                Phone: @m.soDT<br>
+                Email: @m.email
+            </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col" style="margin-top: 20px;">
+            <b>Mã đơn hàng: @dh.soDH</b><br>
+            <br>
+            <b>Ngày mua:</b> @dh.ngayDat<br>
+            <b>Ngày giao:</b> @dh.ngayGH<br>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-12 table-responsive">
+            <table class="table table-striped" style="border: 1px solid #a9a9a9;">
+                <thead>
+                    <tr style=" background: #1df59a;">
+                        <th>Tên sản phẩm</th>
+                        <th>Giá bán (kg)</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CtDonHang ct in x.sanPhamDC.Values)
+                    {
+                        <tr>
+                            <td>@Common.GetTenSPById(ct.maSP)</td>
+                            <td>@ct.giaBan</td>
+                            <td>@ct.soLuong</td>
+                            <td>@String.Format("{0:#,##0 VNĐ}", x.moneyOfProduct(ct))</td>
+                         </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <!-- /.col -->
+        <div class="col-6">
+            <p class="lead">Số Tiền thanh toán:</p>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th style="width:50%">Tiền hàng:</th>
+                        <td>@String.Format("{0:#,##0 VNĐ}", x.totalOfCartShop())</td>
+                    </tr>
+                    <tr>
+                        <th>Thuế mua hàng (0%):</th>
+                        <td>0 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <th>Tiền Ship:</th>
+                        <td>Free Ship</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng tiền thanh toán:</th>
+                        <td>@String.Format("{0:#,##0 VNĐ}", x.totalOfCartShop())</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>

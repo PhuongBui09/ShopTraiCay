@@ -1,0 +1,97 @@
+﻿@model shoptraicay.Models.BaiViet
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Đăng sản phẩm - quảng cáo</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Đăng sản phẩm</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+@using(Html.BeginForm("Index", "NewArticle", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+        <div class="row">
+                <!-- left column -->
+                <div class="col-md-8">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin chính</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form role="form">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tên bài viết</label>
+                                    @Html.TextBoxFor(m => m.tenBV, new { @class="form-control", @id = "exampleInputEmail1", @placeholder="Tên bài viết tối đa 35 ký tự" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="noiDungTT">Nội dung tóm tắt</label>
+                                    @Html.TextAreaFor(m => m.ndTomTat, new { @rows = "7", @class="form-control", @placeholder="Nội dung tóm tắt không được quá 100 chữ" })
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- right column -->
+                <div class="col-md-4">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Hình đại diện</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="imguf" style="margin-bottom: 16px;">
+                                <img src="@ViewBag.HinhMH" style="width: 100%;" />
+                            </div>
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="hinhDaiDien">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div style="margin-left: 20px;">
+                    @Html.TextAreaFor(m => m.noiDung, new { @rows = "7", @class="form-control", @style="margin: 0 7px;", @id="ndBaiViet" })
+                </div>
+                <div class="btnsubmit">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+        </div>
+    </div>
+}
+
+<script src="https://cdn.tiny.cloud/1/h51q5yt2inxmfi7d3yagm5nofygcwx9dhwo2ujixosmr9yxi/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#ndBaiViet',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name'
+    });
+</script>

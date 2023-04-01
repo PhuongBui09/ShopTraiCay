@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>DataTables</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh sách đơn hàng mới đặt</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Số đơn hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Ngày giao</th>
+                                <th>Địa chỉ</th>
+                                <th>Thành tiền</th>
+                                <th>Nhóm lệnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td>DH1</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-default"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            @*<tr>
+                                <td>02</td>
+                                <td>DH2</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>DH3</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>DH4</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td>DH5</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td>DH6</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td>DH7</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>08</td>
+                                <td>DH8</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09</td>
+                                <td>DH9</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>DH10</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>DH11</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>DH12</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>10/11/2022</td>
+                                <td>Chợ vườn lài, An Phú Đông</td>
+                                <td>120000</td>
+                                <td>
+                                    <button class="btn btn-danger">Huỷ đơn</button>
+                                    <button class="btn btn-default">Chi tiết</button>
+                                    <button class="btn btn-success">Kích hoạt</button>
+                                </td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+    </div>
+</section>

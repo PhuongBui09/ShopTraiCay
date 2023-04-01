@@ -1,0 +1,74 @@
+﻿@using shoptraicay.Models;
+
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+@Html.Partial("_SideBar")
+
+<div>
+    @{ 
+        foreach(LoaiSP loai in Common.GetLoaiSPs())
+        {
+            <div class="row sp_home-header" id="@loai.maLoai">
+                <div class="" style="width:25%"></div>
+                @{ 
+                    int dem = 1;
+                    foreach(SanPham sanPham in Common.GetSanPhamTheoLoais(@loai.maLoai))
+                    {
+                                <div class="col-md-3">
+                                    <div class="imgsp">
+                                        <a href="@Url.Action("Index", "ChiTietSP", new { @id = sanPham.maSP } )">
+                                            <img src="@sanPham.hinhDD" />
+                                        </a>
+                                    </div>
+                                    @*<a href="@Url.Action("Index", "ChiTietSP", new { @id = sanPham.maSP } )">
+            <span>@sanPham.tenSP</span>
+        </a>*@
+                                    @Html.ActionLink(@sanPham.tenSP, "Index", "ChiTietSP", new { @id = sanPham.maSP }, null)
+                                    <p>Giá bán: @String.Format("{0:#,##0 VNĐ}", @sanPham.giaBan)</p>
+                                    <button class="btn btn-success" onclick="themTC('@sanPham.maSP', '@sanPham.tenSP'), count()">Mua Ngay</button>
+                                    @*<button class="btn btn-success">Mua Ngay</button>*@
+                                </div>
+                        dem++;
+                        if(dem > 7)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+            </div>
+        }
+    }
+
+</div>
+<hr />
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="TinTuc_RauSach-hd">
+                <h2>Tin tức rau sạch</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @{
+            foreach (BaiViet bv in Common.GetBaiViets())
+            {
+                <div class="col-md-3">
+                    <div class="Tintuc_tong-all">
+                        <div class="img-tintuc">
+                            <img src="@bv.hinhDD" />
+                        </div>
+                        <div class="tintuc_text">
+                            <h5><a href="@Url.Action("Index","ChiTietBV", new { @id = bv.maBV })">@bv.tenBV</a></h5>
+                            <span>@bv.ndTomTat</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@using shoptraicay.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+    List<BaiViet> ds = ViewData["DanhSachBV"] as List<BaiViet>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách các bài viết trong hệ thống</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách bài viết</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã bài viết</th>
+                                <th>Tên bài Viết</th>
+                                <th>Ngày đăng</th>
+                                <th>Tài khoản</th>
+                                <th>Đã duyệt</th>
+                                <th>Nhóm lệnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ 
+                                foreach (BaiViet dsbv in ds)
+                                {
+                                    <tr>
+                                        <td>@dsbv.maBV</td>
+                                        <td>@dsbv.tenBV</td>
+                                        <td>@string.Format("{0: hh:mm [dd/MM/yyyy]}", dsbv.ngayDang)</td>
+                                        <td>@dsbv.DangNhap.hoDem @dsbv.DangNhap.tenTV</td>
+                                        <td>@dsbv.daDuyet</td>
+                                        <td>
+                                            <a href="@Url.Action("UpdateBV", "ArticleList", new { @maBV = dsbv.maBV })">
+                                                <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            </a>
+                                            @if (@dsbv.daDuyet == true)
+                                            {
+                                                using (Html.BeginForm("Active", "ArticleList", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="maBV" value="@dsbv.maBV" />
+                                                    <button class="btn btn-success">Vô hiệu</button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                using (Html.BeginForm("Active", "ArticleList", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="maBV" value="@dsbv.maBV" />
+                                                    <button class="btn btn-warning">Kích hoạt</button>
+                                                }
+                                            }
+                                            @using (Html.BeginForm("Delete", "ArticleList", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="maBV" value="@dsbv.maBV" />
+                                                <button style="margin-right: 4px" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            }
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

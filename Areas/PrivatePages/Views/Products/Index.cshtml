@@ -1,0 +1,99 @@
+﻿@using shoptraicay.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+    List<SanPham> dsSanPham = ViewData["DanhSachSP"] as List<SanPham>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sản phẩm đang kinh doanh trong hệ thống</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách sản phẩm</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            @{
+                                foreach (SanPham x in dsSanPham)
+                                {
+                                    <div class="col-sm-4" style="margin-bottom: 15px">
+                                        <div class="position-relative p-3 bg-gray" style="height: 180px">
+                                            @x.tenSP <br />
+                                            <small class="cacSP" style="position: absolute; width: 80%; -webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; overflow: hidden;">@x.ndTomTat</small>
+                                            <div style="position: relative; bottom: -81px;">
+                                                @using (Html.BeginForm("Delete", "Products"))
+                                                {
+                                                    <input type="hidden" name="loaiCanXoa" value="@x.maSP" />
+                                                    <button class="btn btn-danger">Xóa</button>
+                                                }
+                                                <a href="@Url.Action("UpdateSP", "Products", new { @maSP = x.maSP })">
+                                                    <button class="btn btn-success">Sửa</button>
+                                                </a>
+                                                @using (Html.BeginForm("Active", "Products"))
+                                                {
+                                                    <input type="hidden" name="loaiCanAt" value="@x.maSP" />
+                                                    if (x.daDuyet == true)
+                                                    {
+                                                        <button class="btn btn-warning">Ngưng</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-default">Duyệt</button>
+                                                    }
+                                                }
+                                            </div>
+                                            <img src="@x.hinhDD" style=" height: 44%; bottom: 0; position: absolute; right: 0; padding: 10px;" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            <div class="col-sm-4" style="margin-bottom: 15px">
+                                <div class="position-relative p-3 bg-gray" style="height: 180px">
+                                    <div class="ribbon-wrapper">
+                                        <div class="ribbon bg-danger">
+                                            new
+                                        </div>
+                                    </div>
+                                    Cà rốt <br />
+                                    <small style=" position: absolute; width: 80%;">Cà rốt bảo quản chất lượng cao, xuất xứ tại Việt Nam</small>
+                                    <div style="position: relative; bottom: -92px;">
+                                        <button class="btn btn-danger">Xóa</button>
+                                        <button class="btn btn-success">Sửa</button>
+                                        <button class="btn btn-default">Ngưng</button>
+                                    </div>
+                                    <img src="https://www.inabata.vn/wp/wp-content/uploads/2019/07/c%C3%A1ch-tr%E1%BB%93ng-c%C3%A0-r%E1%BB%91t-6-1024x768.jpg" style=" height: 50%; bottom: 0; position: absolute; right: 0; padding: 10px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->

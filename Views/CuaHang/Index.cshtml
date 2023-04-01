@@ -1,0 +1,89 @@
+﻿@using shoptraicay.Models;
+
+@{
+    ViewBag.Title = "Cửa hàng";
+}
+
+<div style="display: flex;">
+    <h3 style="margin: 0; font-size: 20px;">Sắp xếp theo:</h3>
+    <ul class="sapxepgia_all ">
+        <li>
+            <a href="/CuaHang/Index" class="@((Session["Sort"])==null ? "active_sapxepgia" : "")">
+                Phổ biến
+            </a>
+        </li>
+
+        <li>
+            <a href="/CuaHang/Sort?by=thapDenCao" class="filter-link stext-106 trans-04 @(((string)Session["Sort"])=="thapDenCao" ? "active_sapxepgia" : "")">
+                Thấp đến cao
+            </a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?by=caoDenThap" class="@(((string)Session["Sort"])=="caoDenThap" ? "active_sapxepgia" : "")">Cao Đến Thấp</a>
+        </li>
+    </ul>
+    <h3 style=" margin: 0 0 0 20px; font-size: 20px">Khoảng giá:</h3>
+    <ul class="sapxepgia_all">
+        <li>
+            <a href="/CuaHang/Index" class="@((Session["GiaTu"])==null ? "active_sapxepgia" : "")">Tất cả</a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?fromPrice=10000&toPrice=50000" class="@(Convert.ToInt32((Session["GiaTu"]))==10000 ? "active_sapxepgia" : "")">10-50k</a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?fromPrice=50000&toPrice=100000" class="@(Convert.ToInt32((Session["GiaTu"]))==50000 ? "active_sapxepgia" : "")">50-100k</a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?fromPrice=100000&toPrice=200000" class="@(Convert.ToInt32((Session["GiaTu"]))==100000 ? "active_sapxepgia" : "")">100-200k</a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?fromPrice=200000&toPrice=500000" class="@(Convert.ToInt32((Session["GiaTu"]))==200000 ? "active_sapxepgia" : "")">200-500k</a>
+        </li>
+        <li>
+            <a href="/CuaHang/Sort?fromPrice=500000&toPrice=9999999" class="@(Convert.ToInt32((Session["GiaTu"]))==500000 ? "active_sapxepgia" : "")">500k+</a>
+        </li>
+    </ul>
+</div>
+
+<div>
+    @{
+        List<SanPham> listspload;
+        if (Session["DanhSachSx"] == null)
+        {
+            listspload = Common.GetSanPhamsRandom();
+        }
+        else
+        {
+            listspload = (List<SanPham>)Session["DanhSachSx"];
+        }
+        foreach (LoaiSP loai in Common.GetLoaiSPs())
+        {
+            <div class="row sp_home-header" id="@loai.maLoai">
+                @{
+                    foreach (SanPham sanPham in listspload)
+                    {
+                        <div class="col-md-3">
+                            <div class="imgsp">
+                                <a href="@Url.Action("Index", "ChiTietSP", new { @id = sanPham.maSP } )">
+                                    <img src="@sanPham.hinhDD" />
+                                </a>
+                            </div>
+                            @*<a href="@Url.Action("Index", "ChiTietSP", new { @id = sanPham.maSP } )">
+                                    <span>@sanPham.tenSP</span>
+                              </a>*@
+                            @Html.ActionLink(@sanPham.tenSP, "Index", "ChiTietSP", new { @id = sanPham.maSP }, null)
+                            <p>Giá bán: @String.Format("{0:#,##0 VNĐ}", @sanPham.giaBan)</p>
+                            @*@using (Html.BeginForm("AddToCart", "CuaHang", FormMethod.Post))
+                            {
+                                <input name="maSP" type="hidden" value="@sanPham.maSP" />*@
+                                <button class="btn btn-success" onclick="themTC('@sanPham.maSP', '@sanPham.tenSP')">Mua Ngay</button>
+                            @*}*@
+                            
+                        </div>
+                    }
+                }
+
+            </div>
+        }
+    }
+</div>

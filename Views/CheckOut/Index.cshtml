@@ -1,0 +1,117 @@
+﻿@model shoptraicay.Models.KhachHang
+@using shoptraicay.Models;
+@{
+    ViewBag.Title = "CheckOut";
+    ShoppingCart x = ViewData["Cart"] as ShoppingCart;
+}
+
+<div class="checkout_form container">
+    <h4 class="tt_khachhang">Thông tin khách hàng:</h4>
+    <div class="row">
+        <div class="col-md-8">
+            @using (Html.BeginForm("SaveToDaTaBase", "CheckOut", FormMethod.Post))
+            {
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Họ tên khách hàng:
+                        <span class="star_Red">*</span>
+                    </p>
+                    @Html.TextBoxFor(m => m.tenKH, new { @class = "form-control", @placeholder = "Nhập họ và tên" })
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Số điện thoại:
+                        <span class="star_Red">*</span>
+                    </p>
+                    @Html.TextBoxFor(m => m.soDT, new { @class = "form-control", @placeholder = "Điền số điện thoại" })
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Giới tính:
+                        <span class="star_Red">*</span>
+                    </p>
+                    <div class="forn-group">
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.gioiTinh, true)
+                            Nam
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.gioiTinh, false)
+                            Nữ
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Ngày sinh:
+                        <span class="star_Red">*</span>
+                    </p>
+                    @Html.TextBoxFor(m => m.ngaySinh, new { @type = "date", @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Địa chỉ giao hàng:
+                        <span class="star_Red">*</span>
+                    </p>
+                    @Html.TextBoxFor(m => m.diaChi, new { @class = "form-control", @placeholder = "Địa chỉ" })
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">
+                        Email:
+                        <span class="star_Red">*</span>
+                    </p>
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Gmail, Yahoo,...." })
+                </div>
+                <div class="col-md-6">
+                    <p class="text_head_checkout">Ghi Chú:</p>
+                    @Html.TextAreaFor(m => m.ghiChu, new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Ghi chú của khách hàng (nếu có)"
+                                                           ,
+                        @rows = "8",
+                        @style = "width:100%;height:60px;"
+                    })
+                </div>
+                <div>
+                    <button class="btn btn-success">Thanh toán</button>
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="checkout__order">
+                <h4>Đơn hàng của bạn:</h4>
+                <hr style="border-top: 1px solid #000;" />
+                <div>
+                    <span class="order_sp">Sản phẩm</span>
+                    <span class="order_sp" style="float:right;">Tổng giá</span>
+                </div>
+                <ul style="padding:0;">
+                    @{
+                        foreach (CtDonHang i in x.sanPhamDC.Values)
+                        {
+                            <li class="checkout__order_thucpham">
+                                <span class="checkout__order_sanpham">@Common.GetTenSPById(i.maSP) @String.Format("{0: #kg}", @i.soLuong)</span>
+                                <span class="checkout__order_gia">@String.Format("{0:#,##0 VNĐ}", x.moneyOfProduct(i))</span>
+                            </li>
+                        }
+                    }
+                </ul>
+                <hr style="border-top: 1px solid #000;" />
+                <div>
+                    <span class="order_sp">Tổng Cộng:</span>
+                    <span class="order_sp" style="float:right;">@String.Format("{0:#,##0 VNĐ}", x.totalOfCartShop())</span>
+                </div>
+                <hr style="border-top: 1px solid #000;" />
+                <div>
+                    <span class="order_sp">Hình thức thanh toán:</span>
+                    <div style="margin-top: 10px;">
+                        <input type="checkbox" id="" name="tt_khi_nhanhang" value="">
+                        <label for="tt_khi_nhanhang" style="vertical-align: middle; font-weight: 500;">Thanh toán khi nhận hàng</label><br><br>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

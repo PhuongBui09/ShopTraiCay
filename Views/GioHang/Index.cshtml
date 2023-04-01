@@ -1,0 +1,87 @@
+﻿@using shoptraicay.Models;
+@{
+    ViewBag.Title = "Giỏ hàng";
+    ShoppingCart x = ViewData["Cart"] as ShoppingCart;
+}
+
+<div class="tongCart">
+    <table class="tb_border_cart" style="min-width: 996px;">
+        <thead class="header_Card">
+            <tr>
+                <th class="">Tên Sản Phẩm</th>
+                <th>Ảnh</th>
+                <th>Giá</th>
+                <th>Số lượng(kg)</th>
+                <th>Tổng giá</th>
+                <th>Hủy đơn</th>
+            </tr>
+        </thead>
+        <tbody class="body_Card">
+            @{
+                foreach (CtDonHang i in x.sanPhamDC.Values)
+                {
+                    <tr class="spDaMua">
+                        <td><h5>@Common.GetTenSPById(i.maSP)</h5></td>
+                        <td>
+                            <img style="height: 100px; border: 0; width: 100px;" src="@Common.GetHinhSPById(i.maSP)" alt="">
+                        </td>
+                        <td class="TienCuaSP">
+                            @String.Format("{0:#,##0 VNĐ}", i.giaBan)
+                        </td>
+                        <td class="chonSoLuong">
+                            <span class="input-group-btn">
+                                @using (Html.BeginForm("Decrease", "GioHang", FormMethod.Post))
+                                {
+                                    <input name="maSP" type="hidden" value="@i.maSP" />
+                                    <button class="btn btn-danger btn-number" data-type="minus" data-field="" style=" border-radius: 0;">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                }
+                            </span>
+                            <input type="text" name="soLuong" class="soLuong_cart input-number" value="@i.soLuong" min="1" max="99">
+                            <span class="input-group-btn">
+                                @using (Html.BeginForm("Increase", "GioHang", FormMethod.Post))
+                                {
+                                    <input name="maSP" type="hidden" value="@i.maSP" />
+                                    <button class="btn btn-success btn-number" data-type="plus" data-field="">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                }
+                            </span>
+                        </td>
+                        <td class="TienCuaSP">
+                            @String.Format("{0:#,##0 VNĐ}", x.moneyOfProduct(i))
+                        </td>
+                        <td style="text-align: center">
+                            @using (Html.BeginForm("Delete", "GioHang", FormMethod.Post))
+                            {
+                                <input name="maSP" type="hidden" value="@i.maSP" />
+                                <button class="btn" style="background-color: white;">
+                                    <i class="fa-solid fa-xmark" style=" font-size: 23px;"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+
+    </table>
+    <div class="row row1">
+        @if (x.sanPhamDC.Values.Count == 0)
+        {
+            <p class="no_product">Chưa có sản phẩm nào được thêm vào giỏ hàng !</p>
+        }
+        <div class="col-md-4 tt_capnhat">
+            <a href="@Url.Action("Index","CuaHang")" class="btn btn-success" style="border-radius: 0;">
+                <p style="margin: 0;">Tiếp tục mua hàng</p>
+            </a>
+            <button class="btn btn-info" style="border-radius: 0;">Cập nhật giỏ hàng</button>
+        </div>
+        <div class="col-md-8 tongtatca_Cart">
+            <h4 style="padding: 0 13px; color: #c7b84a; margin: 6px 0px;">Tổng tất cả: @String.Format("{0:#,##0 VNĐ}", x.totalOfCartShop())</h4>
+            <a href="@Url.Action("Index","CheckOut")" class="btn btn-primary" style="border-radius: 0;"><p style="margin: 0;">Mua ngay</p></a>
+        </div>
+    </div>
+</div>

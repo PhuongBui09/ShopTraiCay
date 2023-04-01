@@ -1,0 +1,9 @@
+﻿@using shoptraicay.Models;
+@{
+    DangNhap dn = (DangNhap)Session["tkDangNhap"];
+    if (dn == null)
+    {
+        Response.Redirect("~/Login");
+    }
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}

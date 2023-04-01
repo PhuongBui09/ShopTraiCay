@@ -1,0 +1,77 @@
+﻿@using shoptraicay.Models;
+
+@{
+    ViewBag.Title = "Blog";
+}
+
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row col-sm-8">
+            @{
+                foreach (BaiViet bv in Common.GetBaiViets())
+                {
+                    <div class="col-lg-12 mb-5 mb-lg-0">
+                        <div class="blog_left_sidebar">
+                            <article class="blog_item">
+                                <div class="blog_item_img">
+                                    <img class="card-img rounded-0" src="@bv.hinhDD" alt="">
+                                </div>
+
+                                <div class="">
+                                    <div class="tintuc_text_new">
+                                        <a href="@Url.Action("Index","ChiTietBV", new { @id = bv.maBV })" style="font-size: 22px;">@bv.tenBV</a>
+                                        <span>@bv.ndTomTat</span>
+                                        <div style="height: 1px; width: 700px; background-color: #b8b3b3; margin: 10px 0;"></div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                }
+
+
+            }
+        </div>
+        <div class="col-lg-4">
+            @{
+                for (int i = 0; i < 2; i++)
+                {
+                    <img class="qc_blog" src="~/Assets/Images/quangcao/qc1.jpg" />
+                    <img class="qc_blog" src="~/Assets/Images/quangcao/qc2.jpg" />
+                    <img class="qc_blog" src="~/Assets/Images/quangcao/qc3.jpg" />
+                    <img class="qc_blog" src="~/Assets/Images/quangcao/qc4.jpg" />
+                }
+                <img class="qc_blog" src="~/Assets/Images/quangcao/qc1.jpg" />
+                <img class="qc_blog" src="~/Assets/Images/quangcao/qc2.jpg" />
+            }
+        </div>
+    </div>
+</section>
+
+@*<div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="TinTuc_RauSach-hd">
+                    <h2>Tin tức rau sạch</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @{
+                foreach (BaiViet bv in Common.GetBaiViets())
+                {
+                    <div class="col-md-3">
+                        <div class="Tintuc_tong-all">
+                            <div class="img-tintuc">
+                                <img src="@bv.hinhDD" />
+                            </div>
+                            <div class="tintuc_text">
+                                <h5><a href="@Url.Action("Index","ChiTietBV", new { @id = bv.maBV })">@bv.tenBV</a></h5>
+                                <span>@bv.noiDung</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>*@

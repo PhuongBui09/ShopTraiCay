@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="~/Assets/fontawesome-free-6.1.1-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Assets/Css/main.css" rel="stylesheet" />
+    <link href="~/Assets/Css/responsive.css" rel="stylesheet" />
+    <style>
+        .soGioHang {
+            width: 26px;
+            height: 26px;
+            background-color: black;
+        }
+
+            .soGioHang::after {
+                color: white;
+                content: attr(data-soDonHang);
+            }
+    </style>
+</head>
+<body>
+    <div id="load">
+        <img style=" width: 100%; position: fixed; top: -40%; left: 0; z-index: 999;" src="https://img.idesign.vn/2018/10/23/id-loading-5.gif" />
+    </div>
+    <div class="navbar navbar-inverse">
+        <div class="container header-all">
+            <div class="row">
+                <div class="col-md-3 logoImg">
+                    <a href="">
+                        <img src="data:image/webp;base64,UklGRpgDAABXRUJQVlA4TIwDAAAvdkAMEO/BJpJkK72vXvT4ZqS4w78Aam04jiRJarJ3X/C6wSD8N0lqto0kSak5fjws8o+QCI5hE9m2E36dOGS6bAJrWKJCBH0SkBQ86JkfCJ731Wu9DYoxhk1iYOGSWLi2AMTIUCbp2vbvvU4Zlu97fkrCV1AqChChRlVJEpY17VzODKoiVZlcTPof1Zj/kOHNnMe9fc+x9IOw1RQzNUVBYaC8NAIVKIrgiYj6/3UEbdu22tjRVkQIwcY5lHHsfHMOpv//w84phDxab/0Q0f8JQOGPP35D8ck1dvJ7Sp+/Fpw/57Od+JFSSh+/Kye3OeebPUnpDYCr55xzft6JL1p6i5usn+/Du5TSp5RS+vPpyOU+fEopfTyklNK/Oef7nPPVPiT5TvyVc77bj4NySCm9vs93jznni314LdLrlNL7+6ernHM+2Yfvyivl+mfO+RE7eRCvDym9ur7OOeeLvfhdvH+f0t+XOef8gN38Jl6l9xc55/xwuh/4fkjpx4d/cs755hQ72VtHki9edqfnl+enKO8nF0hycaZvyhaqfRHVqcSQpFMMZVdiAgt9h/LGBBa7okjdVmD8JdqFK21R57mybDoSaiy/QgxcbQsGri7zR9hXoNmuWVhxOjLwuHPOrYokGYStEdrNLNWlB9CaoLBT2qC5HmrTT7ZkErMINei26qha6DEoTnFUB1QOohMcarDfyCoLjvcKI4CO6oDKPUl6ODGvCSI021DtCuAUA8AqM2pbMWEUbFZMgSTtJp2yoHRQHICgxGpBdGiVYYUZBbstjDIVRSUAkdKj9kCSAYAX8xo44beYlLEICoFOcQpLj8zCApgEmzVR0GzglK6OUUythnIAEJVhDYxg/O8ZlAYAgnCr4IWrNyvDFraWEzOkFWxXdYJjNaOYolbxQKc4xUhf0lKOSq+MqzCJ0NQalKVoUGYgKmyE6kpGpXxZ1wSSnGu1CmOJU0YAQTF1lgpsV6EXdJWwKK6gp9oAsEpoa7SsOa7DLNQag0J7JAbFAkBUuLQVpipLhTZsgUWh6wG0hmpoBazCYFrRLgVe6Y57wXYdxk1iUFYOUBuvkPTOeeoAIuWM45MyVYDbAl2FAUdjOFIMYFLGgqj4GnETxLAiDChs3boAIChtAbxgrACzCRpbZFuUD74smAboKReUWmWq0fhNgGacPUnvxhbro3FeLM50kFYxRb3ia6Db6H8TAQ==" />
+                    </a>
+                </div>
+                <div id="menuall" class="col-md-6">
+                    <ul class="header-tongthe">
+                        <li class="MenuList">@Html.ActionLink("Trang Chủ", "Index", "Home", new { area = "" }, new { @class = "act navbar-brand" })</li>
+                        <li class="MenuList">@Html.ActionLink("Cửa Hàng", "Index", "CuaHang", new { area = "" }, new { @class = "act navbar-brand" })</li>
+                        <li class="MenuList">@Html.ActionLink("Blog", "Index", "TinTuc", new { area = "" }, new { @class = "act navbar-brand" })</li>
+                        <li class="MenuList">@Html.ActionLink("Liên Hệ", "Index", "LienHe", new { area = "" }, new { @class = "act navbar-brand" })</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="login-ul">
+                        <li>@Html.ActionLink("Đăng Nhập", "Index", "DangNhap", new { area = "" }, new { @class = "setting-login editlogin" })</li>
+                        <li>@Html.ActionLink("Đăng Ký", "Index", "DangKy", new { area = "" }, new { @class = "setting-login editlogin" })</li>
+                        <li class="gioHang">
+                            <a href="@Url.Action("Index", "GioHang")">
+                                <img src="~/Assets/Images/gio-hang.jpg" />
+                                @*<span id="gioHang" class="badge badge-danger navbar-badge"></span>*@
+                                <p class="soGioHang" data-soDonHang=""></p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div>
+                <div class="row backgr-footer">
+                    <div class="col-md-4">
+                        <div class="logo-footer">
+                            <a href=""><img src="data:image/webp;base64,UklGRpgDAABXRUJQVlA4TIwDAAAvdkAMEO/BJpJkK72vXvT4ZqS4w78Aam04jiRJarJ3X/C6wSD8N0lqto0kSak5fjws8o+QCI5hE9m2E36dOGS6bAJrWKJCBH0SkBQ86JkfCJ731Wu9DYoxhk1iYOGSWLi2AMTIUCbp2vbvvU4Zlu97fkrCV1AqChChRlVJEpY17VzODKoiVZlcTPof1Zj/kOHNnMe9fc+x9IOw1RQzNUVBYaC8NAIVKIrgiYj6/3UEbdu22tjRVkQIwcY5lHHsfHMOpv//w84phDxab/0Q0f8JQOGPP35D8ck1dvJ7Sp+/Fpw/57Od+JFSSh+/Kye3OeebPUnpDYCr55xzft6JL1p6i5usn+/Du5TSp5RS+vPpyOU+fEopfTyklNK/Oef7nPPVPiT5TvyVc77bj4NySCm9vs93jznni314LdLrlNL7+6ernHM+2Yfvyivl+mfO+RE7eRCvDym9ur7OOeeLvfhdvH+f0t+XOef8gN38Jl6l9xc55/xwuh/4fkjpx4d/cs755hQ72VtHki9edqfnl+enKO8nF0hycaZvyhaqfRHVqcSQpFMMZVdiAgt9h/LGBBa7okjdVmD8JdqFK21R57mybDoSaiy/QgxcbQsGri7zR9hXoNmuWVhxOjLwuHPOrYokGYStEdrNLNWlB9CaoLBT2qC5HmrTT7ZkErMINei26qha6DEoTnFUB1QOohMcarDfyCoLjvcKI4CO6oDKPUl6ODGvCSI021DtCuAUA8AqM2pbMWEUbFZMgSTtJp2yoHRQHICgxGpBdGiVYYUZBbstjDIVRSUAkdKj9kCSAYAX8xo44beYlLEICoFOcQpLj8zCApgEmzVR0GzglK6OUUythnIAEJVhDYxg/O8ZlAYAgnCr4IWrNyvDFraWEzOkFWxXdYJjNaOYolbxQKc4xUhf0lKOSq+MqzCJ0NQalKVoUGYgKmyE6kpGpXxZ1wSSnGu1CmOJU0YAQTF1lgpsV6EXdJWwKK6gp9oAsEpoa7SsOa7DLNQag0J7JAbFAkBUuLQVpipLhTZsgUWh6wG0hmpoBazCYFrRLgVe6Y57wXYdxk1iUFYOUBuvkPTOeeoAIuWM45MyVYDbAl2FAUdjOFIMYFLGgqj4GnETxLAiDChs3boAIChtAbxgrACzCRpbZFuUD74smAboKReUWmWq0fhNgGacPUnvxhbro3FeLM50kFYxRb3ia6Db6H8TAQ==" /></a>
+                            <ul>
+                                <li>Địa Chỉ: An Phú Đông,Q12,TP.HCM</li>
+                                <li>Phone: 037.559.5019</li>
+                                <li>Email: Binxtin@gmail.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="center-footer">
+                            <h6> Hữu Ích:</h6>
+                            <ul>
+                                <li class="active-header-text">@Html.ActionLink("Tin tức rau sạch", "Index", "Home", new { @class = "black-color" })</li>
+                                <li>@Html.ActionLink("YouTube: Rau Sạch Trong Ngày", "Index", "Home", new { @class = "black-color" })</li>
+                                <li>Fanpage: Vì Sức Khỏe Người Dùng</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="map-footer center-footer">
+
+                            <div style="display: flex;">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.346396252908!2d106.68940671402463!3d10.861236260594358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175283bcfb48b37%3A0xe633a8e78a5a91fa!2zMTksIDYgVsaw4budbiBMw6BpLCBBbiBQaMO6IMSQw7RuZywgUXXhuq1uIDEyLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1667447321810!5m2!1svi!2s" width="600" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/Assets/scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿@model shoptraicay.Models.SanPham
+@using shoptraicay.Models;
+@{
+    ViewBag.Title = "UpdateSP";
+    List<LoaiSP> loai = Common.GetLoaiSPs();
+}
+
+<h2>UpdateSP</h2>
+
+@using (Html.BeginForm("UpdateSP", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-8">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin chính</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.maSP)
+                        @Html.HiddenFor(m => m.taiKhoan)
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tên bài viết</label>
+                                @Html.TextBoxFor(m => m.tenSP, new { @class = "form-control", @id = "exampleInputEmail1", @placeholder = "Tên bài sản phẩm đa 35 ký tự" })
+                            </div>
+                            <div class="form-group">
+                                <label for="noiDungTT">Nội dung tóm tắt</label>
+                                @Html.TextAreaFor(m => m.ndTomTat, new { @rows = "7", @class = "form-control", @placeholder = "Nội dung tóm tắt không được quá 100 chữ" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Giá bán</label>
+                                @Html.TextBoxFor(m => m.giaBan, new { @class = "form-control", @id = "exampleInputEmail1", @placeholder = "Giá bán" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Giá bán</label>
+                                @Html.TextBoxFor(m => m.giamGia, new { @class = "form-control", @id = "exampleInputEmail1", @placeholder = "Giảm giá" })
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Mã loại", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select name="loaiSP" class="form-control">
+                                        @foreach (LoaiSP l in loai)
+                                        {
+                                            <option value="@l.maLoai">@l.tenLoai</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Ngày đăng</label>
+                                    @Html.TextBoxFor(m => m.ngayDang, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Tài khoản</label>
+                                    @Html.TextBoxFor(m => m.taiKhoan, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- right column -->
+            <div class="col-md-4">
+                <!-- general form elements disabled -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Hình đại diện</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="imguf" style="margin-bottom: 16px;">
+                            <img src="@ViewBag.HinhMH" style="width: 100%;" />
+                        </div>
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="hinhSP">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <div style="margin-left: 20px;">
+                @Html.TextAreaFor(m => m.noiDung, new { @rows = "7", @class = "form-control", @style = "margin: 0 7px;", @id = "ndSP" })
+            </div>
+            <div class="btnsubmit">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="https://cdn.tiny.cloud/1/h51q5yt2inxmfi7d3yagm5nofygcwx9dhwo2ujixosmr9yxi/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#ndSP',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name'
+    });
+</script>
